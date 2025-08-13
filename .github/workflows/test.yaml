@@ -2,7 +2,8 @@ name: Daily and Push Playwright Test Run
 
 on:
   push:
-    branches: main  
+    branches:
+      - main  
   schedule:
     - cron: '0 0 * * *'  # Runs every day at 00:00 UTC
 
@@ -11,19 +12,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 7
-
       - name: Install dependencies
-        run: npm install -D @playwright/test
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
 
       - name: Run Playwright tests
         run: npx playwright test
