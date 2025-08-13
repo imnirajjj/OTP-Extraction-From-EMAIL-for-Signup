@@ -7,7 +7,7 @@ on:
     - cron: '0 0 * * *'  # Runs every day at 00:00 UTC
 
 jobs:
-  cypress-run:
+  playwright-run:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +23,7 @@ jobs:
           version: 7
 
       - name: Install dependencies
-        run: npm install
+        run: npm install -D @playwright/test
 
-      - name: Run PLaywright tests
+      - name: Run Playwright tests
         run: npx playwright test
